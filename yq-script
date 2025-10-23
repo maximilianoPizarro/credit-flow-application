@@ -1,0 +1,3 @@
+#!/bin/sh
+yq -Yi '(.spec.params[] | select(.name == "GIT_REPO").value) |="https://github.com/maximilianoPizarro/credit-flow-application"' pipeline-run.yaml
+yq -Yi '(.spec.params[] | select(.name == "APP_JAR_VERSION").value) |="credit-flow-application-1.0.0-SNAPSHOT-runner.jar"' pipeline-run.yaml
