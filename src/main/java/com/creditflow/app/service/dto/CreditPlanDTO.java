@@ -6,6 +6,7 @@ import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import io.swagger.annotations.ApiModel;
 
 /**
  * A DTO for the {@link com.creditflow.app.domain.CreditPlan} entity.

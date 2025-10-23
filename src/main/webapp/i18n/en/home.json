@@ -1,19 +1,19 @@
 {
   "home": {
-    "title": "Welcome, Java Hipster!",
-    "subtitle": "This is your homepage",
+    "title": "Credit Flow Dashboard",
+    "subtitle": "Welcome to your credit product management page.",
     "logged": {
       "message": "You are logged in as user \"{ username }\"."
     },
-    "question": "If you have any question on JHipster:",
+    "question": "If you have any question on Credit Flow:",
     "link": {
-      "homepage": "JHipster homepage",
-      "stackoverflow": "JHipster on Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "JHipster public chat room",
-      "follow": "follow {'@'}jhipster on Twitter"
+      "homepage": "Credit Flow homepage",
+      "stackoverflow": "Credit Flow on Stack Overflow",
+      "bugtracker": "Credit Flow bug tracker",
+      "chat": "Credit Flow public chat room",
+      "follow": "follow {'@'}Credit Flow on Twitter"
     },
-    "like": "If you like JHipster, don't forget to give us a star on",
+    "like": "If you like Credit Flow, don't forget to give us a star on",
     "github": "GitHub"
   }
 }

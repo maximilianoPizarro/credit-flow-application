@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-
+import io.swagger.annotations.ApiModel;
 /**
  * A DTO for the {@link com.creditflow.app.domain.Loan} entity.
  */

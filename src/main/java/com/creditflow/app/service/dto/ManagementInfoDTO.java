@@ -4,7 +4,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.ArrayList;
 import java.util.List;
-
+import io.swagger.annotations.ApiModel;
 /**
  *  DTO to emulate /management/info response
  */
