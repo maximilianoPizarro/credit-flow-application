@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20251023220713"
+  },
+  "applications": "*",
+  "documentation": "Represents a credit product or plan offered by the bank.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "PlanType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MORTGAGE,PERSONAL,AUTO,CREDIT_CARD,REVOLVING"
+    },
+    {
+      "fieldName": "interestRate",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "maxTermYears",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "CreditPlan",
+  "relationships": [
+    {
+      "otherEntityName": "loan",
+      "otherEntityRelationshipName": "plan",
+      "relationshipName": "loans",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

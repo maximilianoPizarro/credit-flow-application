@@ -1,0 +1,11 @@
+export enum LoanStatus {
+  ACTIVE = 'ACTIVE',
+
+  OVERDUE = 'OVERDUE',
+
+  CANCELLED = 'CANCELLED',
+
+  PAID = 'PAID',
+
+  COLLECTIONS = 'COLLECTIONS',
+}

@@ -1,0 +1,11 @@
+export enum MovementType {
+  PAYMENT = 'PAYMENT',
+
+  CHARGE = 'CHARGE',
+
+  INSTALLMENT = 'INSTALLMENT',
+
+  INTEREST = 'INTEREST',
+
+  COMMISSION = 'COMMISSION',
+}

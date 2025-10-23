@@ -1,0 +1,12 @@
+{
+  "creditFlowAppicationApp": {
+    "LoanStatus": {
+      "null": "",
+      "ACTIVE": "ACTIVE",
+      "OVERDUE": "OVERDUE",
+      "CANCELLED": "CANCELLED",
+      "PAID": "PAID",
+      "COLLECTIONS": "COLLECTIONS"
+    }
+  }
+}

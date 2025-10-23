@@ -1,0 +1,68 @@
+{
+  "annotations": {
+    "changelogDate": "20251023220714"
+  },
+  "applications": "*",
+  "documentation": "Represents a specific loan or financial product\\nthat a client owns. It is the core of the credit history.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "loanNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "openingDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "principalAmount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "outstandingBalance",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "LoanStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVE,OVERDUE,CANCELLED,PAID,COLLECTIONS"
+    },
+    {
+      "fieldName": "closingDate",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Loan",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "creditMovement",
+      "otherEntityRelationshipName": "loan",
+      "relationshipName": "movements",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "documentNumber",
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "loans",
+      "relationshipName": "client",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "creditPlan",
+      "otherEntityRelationshipName": "loans",
+      "relationshipName": "plan",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
