@@ -1,0 +1,12 @@
+{
+  "creditFlowAppicationApp": {
+    "MovementType": {
+      "null": "",
+      "PAYMENT": "PAYMENT",
+      "CHARGE": "CHARGE",
+      "INSTALLMENT": "INSTALLMENT",
+      "INTEREST": "INTEREST",
+      "COMMISSION": "COMMISSION"
+    }
+  }
+}

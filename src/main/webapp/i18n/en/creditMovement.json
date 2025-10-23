@@ -1,0 +1,29 @@
+{
+  "creditFlowAppicationApp": {
+    "creditMovement": {
+      "home": {
+        "title": "Credit Movements",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Credit Movement",
+        "createOrEditLabel": "Create or edit a Credit Movement",
+        "notFound": "No Credit Movements found"
+      },
+      "created": "A new Credit Movement is created with identifier { param }",
+      "updated": "A Credit Movement is updated with identifier { param }",
+      "deleted": "A Credit Movement is deleted with identifier { param }",
+      "delete": {
+        "question": "Are you sure you want to delete Credit Movement { id }?"
+      },
+      "detail": {
+        "title": "Credit Movement"
+      },
+      "id": "ID",
+      "movementDate": "Movement Date",
+      "type": "Type",
+      "amount": "Amount",
+      "description": "Description",
+      "externalReference": "External Reference",
+      "loan": "Loan"
+    }
+  }
+}

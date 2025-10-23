@@ -1,0 +1,11 @@
+export enum PlanType {
+  MORTGAGE = 'MORTGAGE',
+
+  PERSONAL = 'PERSONAL',
+
+  AUTO = 'AUTO',
+
+  CREDIT_CARD = 'CREDIT_CARD',
+
+  REVOLVING = 'REVOLVING',
+}

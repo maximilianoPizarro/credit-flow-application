@@ -17,7 +17,13 @@
     <property name="datetimeType" value="datetime(6)" dbms="mariadb"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251023220712_added_entity_Client.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251023220713_added_entity_CreditPlan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251023220714_added_entity_Loan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251023220715_added_entity_CreditMovement.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20251023220714_added_entity_constraints_Loan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251023220715_added_entity_constraints_CreditMovement.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

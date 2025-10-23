@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20251023220715"
+  },
+  "applications": "*",
+  "documentation": "Represents a transaction on a loan (payment, charge, installment, etc.).",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "movementDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "MovementType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PAYMENT,CHARGE,INSTALLMENT,INTEREST,COMMISSION"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "externalReference",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    }
+  ],
+  "name": "CreditMovement",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "loanNumber",
+      "otherEntityName": "loan",
+      "otherEntityRelationshipName": "movements",
+      "relationshipName": "loan",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

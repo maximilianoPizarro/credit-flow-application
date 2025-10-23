@@ -1,0 +1,29 @@
+{
+  "creditFlowAppicationApp": {
+    "creditPlan": {
+      "home": {
+        "title": "Credit Plans",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Credit Plan",
+        "createOrEditLabel": "Create or edit a Credit Plan",
+        "notFound": "No Credit Plans found"
+      },
+      "created": "A new Credit Plan is created with identifier { param }",
+      "updated": "A Credit Plan is updated with identifier { param }",
+      "deleted": "A Credit Plan is deleted with identifier { param }",
+      "delete": {
+        "question": "Are you sure you want to delete Credit Plan { id }?"
+      },
+      "detail": {
+        "title": "Credit Plan"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "type": "Type",
+      "interestRate": "Interest Rate",
+      "maxTermYears": "Max Term Years",
+      "loans": "Loans"
+    }
+  }
+}
