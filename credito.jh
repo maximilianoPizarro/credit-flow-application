@@ -1,0 +1,95 @@
+// ---------------------------
+// 1. DOMAIN ENTITIES
+// ---------------------------
+
+/**
+ * Represents a bank customer.
+ */
+entity Client {
+    clientNumber Long required unique
+    firstName String required
+    lastName String required
+    dateOfBirth LocalDate required
+    documentType DocumentType required
+    documentNumber String required unique
+    email String unique
+    phone String
+}
+
+/**
+ * Represents a credit product or plan offered by the bank.
+ */
+entity CreditPlan {
+    name String required unique
+    description TextBlob
+    type PlanType required
+    interestRate BigDecimal required
+    maxTermYears Integer
+}
+
+/**
+ * Represents a specific loan or financial product
+ * that a client owns. It is the core of the credit history.
+ */
+entity Loan {
+    loanNumber String required unique
+    openingDate ZonedDateTime required
+    principalAmount BigDecimal required
+    outstandingBalance BigDecimal
+    status LoanStatus required
+    closingDate ZonedDateTime
+}
+
+/**
+ * Represents a transaction on a loan (payment, charge, installment, etc.).
+ */
+entity CreditMovement {
+    movementDate ZonedDateTime required
+    type MovementType required
+    amount BigDecimal required
+    description String
+    externalReference String unique
+}
+
+// ---------------------------
+// 2. ENUMERATIONS (Predefined types)
+// ---------------------------
+
+enum DocumentType {
+    NATIONAL_ID, PASSPORT, RESIDENCE_PERMIT, OTHER
+}
+
+enum PlanType {
+    MORTGAGE, PERSONAL, AUTO, CREDIT_CARD, REVOLVING
+}
+
+enum LoanStatus {
+    ACTIVE, OVERDUE, CANCELLED, PAID, COLLECTIONS
+}
+
+enum MovementType {
+    PAYMENT, CHARGE, INSTALLMENT, INTEREST, COMMISSION
+}
+
+// ---------------------------
+// 3. RELATIONSHIPS
+// ---------------------------
+
+relationship OneToMany {
+    Client{loans} to Loan{client(documentNumber)},
+    CreditPlan{loans} to Loan{plan(name)},
+    Loan{movements} to CreditMovement{loan(loanNumber)}
+}
+
+// ---------------------------
+// 4. GENERATION OPTIONS
+// ---------------------------
+
+// Apply DTOs to all entities for better data handling
+dto Client, CreditPlan, Loan, CreditMovement with mapstruct
+
+// Apply service classes to all entities for business logic
+service Client, CreditPlan, Loan, CreditMovement with serviceClass
+
+// Enable pagination for Loan and CreditMovement entities
+paginate Loan, CreditMovement with pagination
