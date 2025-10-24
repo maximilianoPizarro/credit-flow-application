@@ -1,9 +1,9 @@
 schemaVersion: 2.2.0
 metadata:
-  name: jhipster
+  name: credit-flow-application
   version: 1.0.0
-  description: Stack with the JHipster Online on DevSpaces
-  displayName: JHipster DevSpaces
+  description: Credit Flow monolithic service for Red Hat Developer Hub
+  displayName: Credit Flow
   icon: https://raw.githubusercontent.com/redhat-developer-demos/jhipster-online/main/jhipster-icon.png
   website: https://start.jhipster.tech
   versions:
@@ -93,6 +93,15 @@ commands:
       group:
         kind: run
         isDefault: false
+  - id: buildocp-prod
+    exec:
+      label: 'Run ./mvnw -Pprod clean verify'
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: './mvnw package -Dquarkus.container-image.build=true -Dquarkus.kubernetes.deploy=true -DskipTests'
+      group:
+        kind: run
+        isDefault: false             
 events:
   postStart:
     - build

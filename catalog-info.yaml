@@ -57,14 +57,19 @@ spec:
   definition: |
     openapi: 3.0.3
     info:
-      title: credit-flow-application API
+      title: credit-flow-appication API
       version: 1.0.0
       description: REST API for Credit Flow Application
+    servers:
+      - url: https://credit-flow-application-dev.apps.cluster.local/api
+        description: Development environment
+      - url: http://credit-flow-appication:8080/api
+        description: Local development      
     paths:
       /api/account:
         get:
           tags:
-            - Account Resource
+          - Account Resource
           responses:
             "200":
               description: OK
@@ -77,10 +82,10 @@ spec:
             "403":
               description: Not Allowed
           security:
-            - SecurityScheme: []
+          - SecurityScheme: []
         post:
           tags:
-            - Account Resource
+          - Account Resource
           requestBody:
             content:
               application/json:
@@ -92,7 +97,7 @@ spec:
       /api/account/change-password:
         post:
           tags:
-            - Account Resource
+          - Account Resource
           requestBody:
             content:
               application/json:
@@ -104,7 +109,7 @@ spec:
       /api/account/reset-password/finish:
         post:
           tags:
-            - Account Resource
+          - Account Resource
           requestBody:
             content:
               application/json:
@@ -116,7 +121,7 @@ spec:
       /api/account/reset-password/init:
         post:
           tags:
-            - Account Resource
+          - Account Resource
           requestBody:
             content:
               text/plain:
@@ -125,11 +130,769 @@ spec:
           responses:
             "200":
               description: OK
+      /api/activate:
+        get:
+          tags:
+          - Account Resource
+          parameters:
+          - name: key
+            in: query
+            schema:
+              type: string
+          responses:
+            "204":
+              description: No Content
+      /api/admin/users:
+        get:
+          tags:
+          - User Resource
+          parameters:
+          - name: sort
+            in: query
+            schema:
+              type: string
+          responses:
+            "200":
+              description: OK
+        put:
+          tags:
+          - User Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserDTO"
+          responses:
+            "200":
+              description: OK
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+        post:
+          tags:
+          - User Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserDTO"
+          responses:
+            "200":
+              description: OK
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /api/admin/users/{login}:
+        get:
+          tags:
+          - User Resource
+          parameters:
+          - name: login
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "200":
+              description: OK
+        delete:
+          tags:
+          - User Resource
+          parameters:
+          - name: login
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "200":
+              description: OK
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /api/authenticate:
+        get:
+          tags:
+          - Account Resource
+          responses:
+            "200":
+              description: OK
+              content:
+                text/plain:
+                  schema:
+                    type: string
+        post:
+          tags:
+          - User JWT Controller
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/LoginVM"
+          responses:
+            "200":
+              description: OK
+      /api/authorities:
+        get:
+          tags:
+          - Authority Resource
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      type: string
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /api/clients:
+        get:
+          tags:
+          - Client Resource
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ClientDTO"
+        post:
+          tags:
+          - Client Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ClientDTO"
+          responses:
+            "200":
+              description: OK
+      /api/clients/{id}:
+        get:
+          tags:
+          - Client Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+        put:
+          tags:
+          - Client Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ClientDTO"
+          responses:
+            "200":
+              description: OK
+        delete:
+          tags:
+          - Client Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+      /api/credit-movements:
+        get:
+          tags:
+          - Credit Movement Resource
+          parameters:
+          - name: page
+            in: query
+            schema:
+              format: int32
+              default: 0
+              minimum: 0
+              exclusiveMinimum: true
+              type: integer
+          - name: size
+            in: query
+            schema:
+              format: int32
+              default: 50
+              minimum: 0
+              exclusiveMinimum: true
+              type: integer
+          - name: sort
+            in: query
+            schema:
+              type: array
+              items:
+                type: string
+          responses:
+            "200":
+              description: OK
+        post:
+          tags:
+          - Credit Movement Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreditMovementDTO"
+          responses:
+            "200":
+              description: OK
+      /api/credit-movements/{id}:
+        get:
+          tags:
+          - Credit Movement Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+        put:
+          tags:
+          - Credit Movement Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreditMovementDTO"
+          responses:
+            "200":
+              description: OK
+        delete:
+          tags:
+          - Credit Movement Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+      /api/credit-plans:
+        get:
+          tags:
+          - Credit Plan Resource
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CreditPlanDTO"
+        post:
+          tags:
+          - Credit Plan Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreditPlanDTO"
+          responses:
+            "200":
+              description: OK
+      /api/credit-plans/{id}:
+        get:
+          tags:
+          - Credit Plan Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+        put:
+          tags:
+          - Credit Plan Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreditPlanDTO"
+          responses:
+            "200":
+              description: OK
+        delete:
+          tags:
+          - Credit Plan Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+      /api/loans:
+        get:
+          tags:
+          - Loan Resource
+          parameters:
+          - name: page
+            in: query
+            schema:
+              format: int32
+              default: 0
+              minimum: 0
+              exclusiveMinimum: true
+              type: integer
+          - name: size
+            in: query
+            schema:
+              format: int32
+              default: 50
+              minimum: 0
+              exclusiveMinimum: true
+              type: integer
+          - name: sort
+            in: query
+            schema:
+              type: array
+              items:
+                type: string
+          responses:
+            "200":
+              description: OK
+        post:
+          tags:
+          - Loan Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/LoanDTO"
+          responses:
+            "200":
+              description: OK
+      /api/loans/{id}:
+        get:
+          tags:
+          - Loan Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+        put:
+          tags:
+          - Loan Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/LoanDTO"
+          responses:
+            "200":
+              description: OK
+        delete:
+          tags:
+          - Loan Resource
+          parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              format: int64
+              type: integer
+          responses:
+            "200":
+              description: OK
+      /api/register:
+        post:
+          tags:
+          - Account Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ManagedUserVM"
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json: {}
+      /management/configprops:
+        get:
+          tags:
+          - J Hipster Configuration Endpoint
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ConfigPropsVM"
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /management/env:
+        get:
+          tags:
+          - J Hipster Configuration Endpoint
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/EnvVM"
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /management/info:
+        get:
+          tags:
+          - Management Info Resource
+          responses:
+            "200":
+              description: OK
+      /management/jhimetrics:
+        get:
+          tags:
+          - J Hipster Metrics Endpoint
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    additionalProperties:
+                      type: object
+      /management/loggers:
+        get:
+          tags:
+          - J Hipster Loggers Endpoint
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/LoggersWrapper"
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /management/loggers/{name}:
+        post:
+          tags:
+          - J Hipster Loggers Endpoint
+          parameters:
+          - name: name
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/LoggerVM"
+          responses:
+            "200":
+              description: OK
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+          - SecurityScheme: []
+      /management/threaddump:
+        get:
+          tags:
+          - J Hipster Metrics Endpoint
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items: {}
     components:
       schemas:
-        UserDTO:
+        ClientDTO:
           required:
-            - login
+          - clientNumber
+          - firstName
+          - lastName
+          - dateOfBirth
+          - documentType
+          - documentNumber
+          type: object
+          properties:
+            id:
+              format: int64
+              type: integer
+            clientNumber:
+              format: int64
+              type: integer
+            firstName:
+              type: string
+            lastName:
+              type: string
+            dateOfBirth:
+              $ref: "#/components/schemas/LocalDate"
+            documentType:
+              $ref: "#/components/schemas/DocumentType"
+            documentNumber:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+        ConfigPropsVM:
+          type: object
+          properties:
+            contexts:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/Context"
+        Context:
+          type: object
+          properties:
+            beans:
+              type: object
+              additionalProperties: {}
+        CreditMovementDTO:
+          required:
+          - movementDate
+          - type
+          - amount
+          type: object
+          properties:
+            id:
+              format: int64
+              type: integer
+            movementDate:
+              $ref: "#/components/schemas/ZonedDateTime"
+            type:
+              $ref: "#/components/schemas/MovementType"
+            amount:
+              type: number
+            description:
+              type: string
+            externalReference:
+              type: string
+            loanId:
+              format: int64
+              type: integer
+            loan:
+              type: string
+        CreditPlanDTO:
+          required:
+          - name
+          - type
+          - interestRate
+          type: object
+          properties:
+            id:
+              format: int64
+              type: integer
+            name:
+              type: string
+            description:
+              type: string
+            type:
+              $ref: "#/components/schemas/PlanType"
+            interestRate:
+              type: number
+            maxTermYears:
+              format: int32
+              type: integer
+        DocumentType:
+          enum:
+          - NATIONAL_ID
+          - PASSPORT
+          - RESIDENCE_PERMIT
+          - OTHER
+          type: string
+        EnvVM:
+          type: object
+          properties:
+            activeProfiles:
+              type: array
+              items:
+                type: string
+            propertySources:
+              type: array
+              items:
+                $ref: "#/components/schemas/PropertySource"
+        Instant:
+          format: date-time
+          type: string
+          example: 2022-03-10T16:15:50Z
+        KeyAndPasswordVM:
+          type: object
+          properties:
+            key:
+              type: string
+            newPassword:
+              type: string
+        LoanDTO:
+          required:
+          - loanNumber
+          - openingDate
+          - principalAmount
+          - status
+          type: object
+          properties:
+            id:
+              format: int64
+              type: integer
+            loanNumber:
+              type: string
+            openingDate:
+              $ref: "#/components/schemas/ZonedDateTime"
+            principalAmount:
+              type: number
+            outstandingBalance:
+              type: number
+            status:
+              $ref: "#/components/schemas/LoanStatus"
+            closingDate:
+              $ref: "#/components/schemas/ZonedDateTime"
+            clientId:
+              format: int64
+              type: integer
+            client:
+              type: string
+            planId:
+              format: int64
+              type: integer
+            plan:
+              type: string
+        LoanStatus:
+          enum:
+          - ACTIVE
+          - OVERDUE
+          - CANCELLED
+          - PAID
+          - COLLECTIONS
+          type: string
+        LocalDate:
+          format: date
+          type: string
+          example: 2022-03-10
+        LoggerVM:
+          type: object
+          properties:
+            name:
+              type: string
+            effectiveLevel:
+              type: string
+            configuredLevel:
+              type: string
+        LoggersWrapper:
+          type: object
+          properties:
+            loggers:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/LoggerVM"
+        LoginVM:
+          required:
+          - username
+          - password
+          type: object
+          properties:
+            username:
+              maxLength: 50
+              minLength: 1
+              type: string
+            password:
+              maxLength: 100
+              minLength: 4
+              type: string
+            rememberMe:
+              type: boolean
+        ManagedUserVM:
+          required:
+          - login
           type: object
           properties:
             id:
@@ -150,20 +913,40 @@ spec:
               maxLength: 254
               minLength: 5
               type: string
+            imageUrl:
+              maxLength: 256
+              type: string
             activated:
               type: boolean
             langKey:
               maxLength: 10
               minLength: 2
               type: string
-            createdDate:
+            createdBy:
               type: string
-              format: date-time
+            createdDate:
+              $ref: "#/components/schemas/Instant"
+            lastModifiedBy:
+              type: string
+            lastModifiedDate:
+              $ref: "#/components/schemas/Instant"
             authorities:
               uniqueItems: true
               type: array
               items:
                 type: string
+            password:
+              maxLength: 100
+              minLength: 4
+              type: string
+        MovementType:
+          enum:
+          - PAYMENT
+          - CHARGE
+          - INSTALLMENT
+          - INTEREST
+          - COMMISSION
+          type: string
         PasswordChangeDTO:
           type: object
           properties:
@@ -171,13 +954,77 @@ spec:
               type: string
             newPassword:
               type: string
-        KeyAndPasswordVM:
+        PlanType:
+          enum:
+          - MORTGAGE
+          - PERSONAL
+          - AUTO
+          - CREDIT_CARD
+          - REVOLVING
+          type: string
+        PropertySource:
           type: object
           properties:
-            key:
+            name:
               type: string
-            newPassword:
+            properties:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/PropertyValue"
+        PropertyValue:
+          type: object
+          properties:
+            value:
               type: string
+        UserDTO:
+          required:
+          - login
+          type: object
+          properties:
+            id:
+              format: int64
+              type: integer
+            login:
+              maxLength: 50
+              minLength: 1
+              pattern: "^[_.@A-Za-z0-9-]*$"
+              type: string
+            firstName:
+              maxLength: 50
+              type: string
+            lastName:
+              maxLength: 50
+              type: string
+            email:
+              maxLength: 254
+              minLength: 5
+              type: string
+            imageUrl:
+              maxLength: 256
+              type: string
+            activated:
+              type: boolean
+            langKey:
+              maxLength: 10
+              minLength: 2
+              type: string
+            createdBy:
+              type: string
+            createdDate:
+              $ref: "#/components/schemas/Instant"
+            lastModifiedBy:
+              type: string
+            lastModifiedDate:
+              $ref: "#/components/schemas/Instant"
+            authorities:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+        ZonedDateTime:
+          format: date-time
+          type: string
+          example: 2022-03-10T12:15:50-04:00
       securitySchemes:
         SecurityScheme:
           type: http
