@@ -1,0 +1,199 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/quarkus-version: 3.11.1
+    app.quarkus.io/commit-id: 14136b8d62b4453bc98972bed921da7409e1c72a
+    app.quarkus.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/build-timestamp: 2025-10-24 - 21:01:11 +0000
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /management/prometheus
+    prometheus.io/port: "8080"
+    prometheus.io/scheme: http
+  labels:
+    app.kubernetes.io/name: credit-flow-application
+    app.kubernetes.io/part-of: credit-flow-application
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: quarkus
+    app.openshift.io/runtime: quarkus
+  name: credit-flow-application
+  namespace: credit-flow-application
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: credit-flow-application
+    app.kubernetes.io/part-of: credit-flow-application
+    app.kubernetes.io/version: 1.0.0
+  type: ClusterIP
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app.kubernetes.io/name: credit-flow-application
+    app.kubernetes.io/part-of: credit-flow-application
+    app.kubernetes.io/version: 1.0.0
+  name: openjdk-17
+  namespace: credit-flow-application
+spec:
+  dockerImageRepository: registry.access.redhat.com/ubi8/openjdk-17
+  lookupPolicy:
+    local: true
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    app.openshift.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/quarkus-version: 3.11.1
+    app.quarkus.io/commit-id: 14136b8d62b4453bc98972bed921da7409e1c72a
+    app.quarkus.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/build-timestamp: 2025-10-24 - 21:01:11 +0000
+  labels:
+    app.kubernetes.io/name: credit-flow-application
+    app.kubernetes.io/part-of: credit-flow-application
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: quarkus
+    app.openshift.io/runtime: quarkus
+  name: credit-flow-application
+  namespace: credit-flow-application
+spec:
+  lookupPolicy:
+    local: true
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    app.openshift.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/quarkus-version: 3.11.1
+    app.quarkus.io/commit-id: 14136b8d62b4453bc98972bed921da7409e1c72a
+    app.quarkus.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/build-timestamp: 2025-10-24 - 21:01:11 +0000
+  labels:
+    app.kubernetes.io/name: credit-flow-application
+    app.kubernetes.io/part-of: credit-flow-application
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: quarkus
+    app.openshift.io/runtime: quarkus
+  name: credit-flow-application
+  namespace: credit-flow-application
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: credit-flow-application:1.0.0
+  source:
+    binary: {}
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: openjdk-17:1.19
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.openshift.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/quarkus-version: 3.11.1
+    app.quarkus.io/commit-id: 14136b8d62b4453bc98972bed921da7409e1c72a
+    app.quarkus.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+    app.quarkus.io/build-timestamp: 2025-10-24 - 21:01:11 +0000
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /management/prometheus
+    prometheus.io/port: "8080"
+    prometheus.io/scheme: http
+  labels:
+    app.kubernetes.io/managed-by: quarkus
+    app.openshift.io/runtime: quarkus
+    app.kubernetes.io/name: credit-flow-application
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/part-of: credit-flow-application
+  name: credit-flow-application
+  namespace: credit-flow-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: credit-flow-application
+      app.kubernetes.io/version: 1.0.0
+      app.kubernetes.io/part-of: credit-flow-application
+  template:
+    metadata:
+      annotations:
+        alpha.image.policy.openshift.io/resolve-names: '*'
+        app.openshift.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+        app.quarkus.io/quarkus-version: 3.11.1
+        app.quarkus.io/commit-id: 14136b8d62b4453bc98972bed921da7409e1c72a
+        app.quarkus.io/vcs-uri: https://github.com/maximilianoPizarro/credit-flow-application.git
+        app.quarkus.io/build-timestamp: 2025-10-24 - 21:01:11 +0000
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /management/prometheus
+        prometheus.io/port: "8080"
+        prometheus.io/scheme: http
+      labels:
+        app.kubernetes.io/managed-by: quarkus
+        app.openshift.io/runtime: quarkus
+        app.kubernetes.io/name: credit-flow-application
+        app.kubernetes.io/version: 1.0.0
+        app.kubernetes.io/part-of: credit-flow-application
+      namespace: credit-flow-application
+    spec:
+      containers:
+        - env:
+            - name: QUARKUS_LIQUIBASE_ENABLED
+              value: "false"
+            - name: JAVA_APP_JAR
+              value: /deployments/quarkus-run.jar
+          image: credit-flow-application/credit-flow-application:1.0.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /management/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: credit-flow-application
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /management/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /management/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+      initContainers:
+        - args:
+            - job
+            - credit-flow-application-credit-flow-appication-liquibase-init
+          image: groundnuty/k8s-wait-for:no-root-v1.7
+          imagePullPolicy: IfNotPresent
+          name: wait-for-credit-flow-appication-liquibase
+      serviceAccountName: default
