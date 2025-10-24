@@ -1013,3 +1013,17 @@ spec:
           description: Authentication
           scheme: bearer
           bearerFormat: JWT
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: maximilianopizarro
+  description: Equipo de desarrollo
+spec:
+  type: team
+  profile:
+    displayName: Team Maxi
+    email: maximiliano.pizarro.5@gmail.com
+  children: []
+  members:
+    - user:default/maximilianopizarro 
