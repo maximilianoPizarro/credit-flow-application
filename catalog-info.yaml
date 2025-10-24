@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: 'credit-flow-application'
-  description: 'Credit Flow monolithich for Red Hat Developer Hub'
+  name: credit-flow-application
+  description: Credit Flow monolithic service for Red Hat Developer Hub
   annotations:
     github.com/project-slug: maximilianopizarro/credit-flow-application
     backstage.io/techdocs-ref: dir:.
@@ -10,12 +10,12 @@ metadata:
     backstage.io/kubernetes-id: credit-flow-application
     janus-idp.io/tekton: credit-flow-application
     backstage.io/kubernetes-label-selector: 'app=credit-flow-application'
-    backstage.io/api-entity-ref: 'api:default/credit-flow-rest-api' 
+    backstage.io/api-entity-ref: 'api:default/credit-flow-rest-api'
   links:
     - title: Documentation
-      url: https://github.com/maximilianoPizarro/credit-flow-application/blob/main/README.md
-    - url: https://workspaces.openshift.com/#https://github.com/maximilianoPizarro/credit-flow-application/tree/main?storageType=ephemeral
-      title: OpenShift Dev Spaces (VS Code)
+      url: https://github.com/maximilianopizarro/credit-flow-application/blob/main/README.md
+    - title: OpenShift Dev Spaces (VS Code)
+      url: https://workspaces.openshift.com/#https://github.com/maximilianopizarro/credit-flow-application/tree/main?storageType=ephemeral
       icon: web
   tags:
     - java
@@ -23,24 +23,36 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: 'group:default/maximilianopizarro'
-  system: default/credit-flow-application 
+  owner: group:default/maximilianopizarro
+  system: default/credit-flow-application
 
 ---
 
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: credit-flow-rest-api 
-  description: "REST API for Credit Flow Application (Account, Clients, Loans)"
+  name: credit-flow-rest-api
+  description: REST API for Credit Flow Application (Accounts, Clients, Loans)
   annotations:
     backstage.io/owned-by: 'component:default/credit-flow-application'
     backstage.io/swagger-api: 'https://raw.githubusercontent.com/maximilianopizarro/credit-flow-application/main/openapi.yaml'
 spec:
-  type: openapi 
+  type: openapi
   lifecycle: production
-  owner: 'group:default/maximilianopizarro'
+  owner: group:default/maximilianopizarro
   system: credit-flow-application
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: credit-flow-application
+  description: Monolithic system handling the full credit flow lifecycle
+spec:
+  owner: group:default/maximilianopizarro
+  components:
+    - credit-flow-application
 
 ---
 
@@ -57,14 +69,3 @@ spec:
   children: []
   members:
     - user:default/maximilianopizarro
-
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: credit-flow-application 
-  description: Sytem monolithich for access to credit flow 
-spec:
-  owner: group:default/maximilianopizarro 
-  components:
-    - credit-flow-application
