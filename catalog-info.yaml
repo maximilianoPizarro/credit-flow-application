@@ -22,7 +22,7 @@ metadata:
     - dev
 spec:
   type: service
-  lifecycle: experimental
+  lifecycle: production
   owner: 'group:default/maximilianopizarro'
   system: default/credit-flow-application 
 
