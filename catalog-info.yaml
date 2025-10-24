@@ -28,22 +28,6 @@ spec:
 
 ---
 apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: credit-flow-rest-api
-  description: REST API for Credit Flow Application (Accounts, Clients, Loans)
-  annotations:
-    backstage.io/owned-by: 'component:default/credit-flow-application'
-spec:
-  type: openapi
-  lifecycle: production
-  owner: group:default/maximilianopizarro
-  system: credit-flow-application
-  definition: |
-    $file: ./openapi.yaml
-
----
-apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
   name: maximilianopizarro
@@ -56,3 +40,147 @@ spec:
   children: []
   members:
     - user:default/maximilianopizarro
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: credit-flow-rest-api
+  description: REST API for Credit Flow Application (Accounts, Clients, Loans)
+  annotations:
+    backstage.io/owned-by: 'component:default/credit-flow-application'
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/maximilianopizarro
+  system: credit-flow-application
+  definition: |
+    openapi: 3.0.3
+    info:
+      title: credit-flow-application API
+      version: 1.0.0
+      description: REST API for Credit Flow Application
+    paths:
+      /api/account:
+        get:
+          tags:
+            - Account Resource
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserDTO"
+            "401":
+              description: Not Authorized
+            "403":
+              description: Not Allowed
+          security:
+            - SecurityScheme: []
+        post:
+          tags:
+            - Account Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserDTO"
+          responses:
+            "200":
+              description: OK
+      /api/account/change-password:
+        post:
+          tags:
+            - Account Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PasswordChangeDTO"
+          responses:
+            "200":
+              description: OK
+      /api/account/reset-password/finish:
+        post:
+          tags:
+            - Account Resource
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/KeyAndPasswordVM"
+          responses:
+            "200":
+              description: OK
+      /api/account/reset-password/init:
+        post:
+          tags:
+            - Account Resource
+          requestBody:
+            content:
+              text/plain:
+                schema:
+                  type: string
+          responses:
+            "200":
+              description: OK
+    components:
+      schemas:
+        UserDTO:
+          required:
+            - login
+          type: object
+          properties:
+            id:
+              format: int64
+              type: integer
+            login:
+              maxLength: 50
+              minLength: 1
+              pattern: "^[_.@A-Za-z0-9-]*$"
+              type: string
+            firstName:
+              maxLength: 50
+              type: string
+            lastName:
+              maxLength: 50
+              type: string
+            email:
+              maxLength: 254
+              minLength: 5
+              type: string
+            activated:
+              type: boolean
+            langKey:
+              maxLength: 10
+              minLength: 2
+              type: string
+            createdDate:
+              type: string
+              format: date-time
+            authorities:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+        PasswordChangeDTO:
+          type: object
+          properties:
+            currentPassword:
+              type: string
+            newPassword:
+              type: string
+        KeyAndPasswordVM:
+          type: object
+          properties:
+            key:
+              type: string
+            newPassword:
+              type: string
+      securitySchemes:
+        SecurityScheme:
+          type: http
+          description: Authentication
+          scheme: bearer
+          bearerFormat: JWT
