@@ -22,7 +22,7 @@ metadata:
     - java
     - dev
 spec:
-  type: service
+  type: webside
   lifecycle: experimental
   owner: 'group:default/maximilianopizarro'
 
