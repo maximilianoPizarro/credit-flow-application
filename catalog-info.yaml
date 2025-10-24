@@ -56,14 +56,3 @@ spec:
   children: []
   members:
     - user:default/maximilianopizarro
-
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: credit-flow-application
-  description: Monolithic system handling the full credit flow lifecycle
-spec:
-  owner: group:default/maximilianopizarro
-  components:
-    - credit-flow-application
