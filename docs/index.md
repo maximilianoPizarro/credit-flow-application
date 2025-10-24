@@ -7,7 +7,7 @@ This application was generated using JHipster 8.8.0 and JHipster Quarkus , you c
 ## JHipster Domain Model
 
 <div align="left">
-  <img src="https://github.com/maximilianoPizarro/credit-flow-application/raw/main/docs/jhipster-jdl.png" width="900"/>
+  <img src="https://raw.githubusercontent.com/maximilianoPizarro/credit-flow-application/main/docs/jhipster-jdl.png" width="900"/>
 </div>
 
 ## Project Structure

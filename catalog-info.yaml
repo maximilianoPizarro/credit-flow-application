@@ -11,7 +11,7 @@ metadata:
     janus-idp.io/tekton: credit-flow-application
     backstage.io/kubernetes-label-selector: 'app=credit-flow-application'
     backstage.io/api-entity-ref: 'api:default/credit-flow-rest-api' 
-    backstage.io/swagger-api: 'https://raw.githubusercontent.com/maximilianoPizarro/credit-flow-application/main/openapi.yaml'
+    backstage.io/swagger-api: 'https://github.com/maximilianoPizarro/credit-flow-application/blob/main/openapi.yaml'
   links:
     - title: Documentation
       url: https://github.com/maximilianoPizarro/credit-flow-application/blob/main/README.md
@@ -41,8 +41,6 @@ spec:
   owner: 'group:default/maximilianopizarro'
   system: credit-flow-application
   definition: |
-    # 👇 TODO el contenido de tu especificación OpenAPI (YAML/JSON) debe ir aquí, 
-    #    con la indentación correcta (generalmente 2 espacios) bajo el pipe (|).
     openapi: 3.0.3
     info:
       title: credit-flow-appication API
@@ -1018,11 +1016,11 @@ apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
   name: maximilianopizarro
-  description: Equipo de desarrollo
+  description: Team Dev
 spec:
   type: team
   profile:
-    displayName: Team Maxi
+    displayName: Team Dev
     email: maximiliano.pizarro.5@gmail.com
   children: []
   members:
