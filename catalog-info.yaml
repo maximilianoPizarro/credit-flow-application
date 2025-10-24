@@ -35,12 +35,19 @@ metadata:
   description: REST API for Credit Flow Application (Accounts, Clients, Loans)
   annotations:
     backstage.io/owned-by: 'component:default/credit-flow-application'
-    backstage.io/swagger-api: 'https://raw.githubusercontent.com/maximilianopizarro/credit-flow-application/main/openapi.yaml'
 spec:
   type: openapi
   lifecycle: production
   owner: group:default/maximilianopizarro
   system: credit-flow-application
+  definition: |
+    $openapi: 3.0.3
+    info:
+      title: Credit Flow REST API
+      version: "1.0.0"
+      description: REST API for Credit Flow Application
+    servers:
+      - url: https://raw.githubusercontent.com/maximilianopizarro/credit-flow-application/main/openapi.yaml
 
 ---
 
