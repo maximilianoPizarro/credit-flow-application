@@ -27,7 +27,6 @@ spec:
   system: default/credit-flow-application
 
 ---
-
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
@@ -41,16 +40,9 @@ spec:
   owner: group:default/maximilianopizarro
   system: credit-flow-application
   definition: |
-    $openapi: 3.0.3
-    info:
-      title: Credit Flow REST API
-      version: "1.0.0"
-      description: REST API for Credit Flow Application
-    servers:
-      - url: https://raw.githubusercontent.com/maximilianopizarro/credit-flow-application/main/openapi.yaml
+    $file: ./openapi.yaml
 
 ---
-
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
@@ -64,3 +56,14 @@ spec:
   children: []
   members:
     - user:default/maximilianopizarro
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: credit-flow-application
+  description: Monolithic system handling the full credit flow lifecycle
+spec:
+  owner: group:default/maximilianopizarro
+  components:
+    - credit-flow-application
