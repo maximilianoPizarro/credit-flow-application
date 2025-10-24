@@ -93,6 +93,18 @@ commands:
       group:
         kind: run
         isDefault: false
+  - id: oc-add-mysql
+    exec:
+      label: 'OpenShift apply MariaDB Instance (OpenShift cluster)'
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: 'oc apply -f src/main/kubernetes/mysql.yaml'
+  - id: oc-remove-mysql
+    exec:
+      label: 'OpenShift remove MariaDB Instance (OpenShift cluster)'
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: 'oc delete all --selector app=mariadb'        
   - id: buildocp-prod
     exec:
       label: 'Run ./mvnw -Pprod clean verify'
