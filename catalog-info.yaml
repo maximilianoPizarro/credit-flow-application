@@ -10,7 +10,7 @@ metadata:
     backstage.io/kubernetes-id: credit-flow-application
     janus-idp.io/tekton: credit-flow-application
     backstage.io/kubernetes-label-selector: 'app=credit-flow-application'
-    backstage.io/swagger-api: 'https://github.com/maximilianopizarro/credit-flow-application/blob/main/openapi.yaml'
+    backstage.io/swagger-api: 'https://raw.githubusercontent.com/maximilianoPizarro/credit-flow-application/main/openapi.yaml'
   links:
     - title: Documentation
       url: https://github.com/maximilianoPizarro/credit-flow-application/blob/main/README.md
